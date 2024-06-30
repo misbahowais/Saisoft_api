@@ -16,12 +16,14 @@ namespace Services.Dashboard
 
         public int TotalEmp()
         {
-            return 0;
+            return db.EmployeeModels.Count();
+
 
         }
         public int ActiveTotalEmp()
+
         {
-            return 0;
+            return db.EmployeeModels.Where(m => m.Status == true).Count();
         }
     }
 }
