@@ -1,0 +1,32 @@
+﻿#nullable enable
+using CoreBusiness.Models;
+using Microsoft.EntityFrameworkCore;
+namespace Saisoft_api;
+public partial class EmployeeDbContext : DbContext
+{
+    public EmployeeDbContext(DbContextOptions<EmployeeDbContext> options) : base(options)
+    {
+
+    }
+
+    public virtual DbSet<EmployeeModel> EmployeeModels { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<EmployeeModel>(entity =>
+        {
+            entity.ToTable("Employee");
+        });
+
+        OnModelCreating(modelBuilder);
+    }
+
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+    public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,CancellationToken cancellationToken = default)
+    {
+        return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+    }
+}
+
+
